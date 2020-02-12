@@ -1,0 +1,64 @@
+---
+title: "Temperature Response on Harvard Forest "
+author: "Katherine Castrillon"
+date: "01/24/2020"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Objectives
+
+
+The purpose of looking at flux data from Ameriflux for the Harvard Forest tower (Ha1) was to understand annual patterns of the ecosystems photosynthetic potential and occurring respiration rates within the temperate mixed forest; observed data was collected for every year from 1991 to 2016. Net Ecosystem Exchange (NEE) rates was used to quantify for the given night dataframe (nee.night) to determine the variable rates of NEE on an annual basis. 
+
+Methodology used to determine respiration in regards to temperature required for use of the creation of a dataframe to store monthly parameters (parms.Month), writing a function to fit the model and extract parameter values from nee.night, writing a loop to fit monthly curves and add parameters to the parms.Month dataframe, and error estimation by use of bootstrapping. 
+
+
+# Methods
+
+The observed site was Harvard Forest, NEE data taken from Harvard Forest tower Ha1, located at Lat/Long 42.5369, -72.17266.
+
+
+![an image caption Source: Harvard Forest tower Ha1 among temperate forest.](/Users/katca/Desktop/Reproducible_Science/Image_Harvard.jpg)
+
+
+
+A nonlinear least-square (nls) estimator was used for the estimation of the parameters observed for harv night dataframe, and parms.Month. A function was created to observe temperature, this was done to measure variables a, the base respiration when air temperature is 0 degrees Celsius, and b, an empirical coefficient. 
+Starting values were identified for the nonlinear model by using selfStart.
+
+A function was created to fit the model for temperature:
+  
+  trcModel <- function(TA, a, b) {
+  y=a * exp(b*TA)
+  return(y)
+}
+
+Then, a function was created to calculate inital values from the data. Maximum and minimum NEE were found for variables a and b. 
+These procedures were completed to move on to utilizing the selfStart function.
+
+The selfStart function created was:
+
+SS.trc <- selfStart(model=trcModel,initial= trc.int)
+
+
+Initial values (iv) for respiration and empirical coefficient were found for harv harv night dataframe for the month of December.
+
+Assumptions checked were: Residuals vesus fitted values, standardized residuals, autocorrelation, and histogram (normality).
+
+Bootstrapping was then utilized to estimate errors, and data was plotted. 
+
+    
+# Results
+
+![an image caption Source: Assumptions checked.](/Users/katca/Desktop/Reproducible_Science/Rplot.png)
+
+
+
+# Discussion 
+
+Utilizing the Harvard Forest night data, a model was created using monthly temperature response curves. The temperature response curves explain the patterns seen in the data of Net Ecosystem Exchange. The variables viewed and plotted using the Harvard Forest night data consisted of respiration and productivity. Bootstrapping was a method used in the analysis. Bootstrapping allows for analyzing data that is not normally distributed. The bootstrapping method estimates errors for the parameters by resampling the data, and this is done so multiple times at random to see how the subsampled data fits into the inital model. With this dataset, bootstrapping was pushed through the data 100 times. 

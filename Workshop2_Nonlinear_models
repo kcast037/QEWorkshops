@@ -1,0 +1,117 @@
+
+load("C:/Users/katca/Desktop/Reproducible_Science/NLM_Workshop.RData")
+library(nlstools)
+rm(list=ls())
+
+trcModel <- function(TA, a, b) {
+  y=a * exp(b*TA)
+  return(y)
+}
+
+trc.int <- function (mCall, LHS, data){
+  x <- data$TA
+  y <- data$NEE
+  
+  a <-1.00703982 + -0.08089044* (min(na.omit(y)))
+  b <- 0.051654 + 0.001400 * (min(na.omit(y))) 
+  
+  value = list(a, b)
+  names(value) <- mCall[c("a", "b")]
+  return(value)
+}
+
+
+
+SS.trc <- selfStart(model=trcModel,initial= trc.int)
+
+trc <- getInitial(y ~ SS.trc('TA', "a", "b"), 
+                 data = night[which(night$MONTH == 12),]) 
+trc 
+
+y = nls( NEE ~ (a * exp(b * TA)), night[which(night$MONTH == 12),], 
+         start=list(a= trc$a , b= trc$b), 
+         na.action=na.exclude, trace=F, control=nls.control(warnOnly=T))
+summary(y)
+
+res.trc <- nlsResiduals(y) 
+par(mfrow=c(2,2)) 
+plot(res.trc, which=1)# Residulas vs fitted values (Constant Variance) 
+plot(res.trc, which=3) # Standardized residuals 
+plot(res.trc, which=4) # Autocorrelation 
+plot(res.trc, which=5) # Histogram (Normality)
+
+
+
+
+parms.Month <- data.frame(
+  MONTH=numeric(),
+  a=numeric(),
+  b=numeric(), 
+  a.pvalue=numeric(),
+  b.pvalue=numeric(), stringsAsFactors=FALSE, row.names=NULL)
+parms.Month[1:12, 1] <- seq(1,12,1)
+
+
+nee.night <- function(dataframe){y.df = nls(NEE ~ a * exp(b*TA), 
+                                            dataframe, start=list(a=iv$a , b=iv$b ),
+                                            na.action=na.exclude, trace=F,
+                                            control=nls.control(warnOnly=T))
+
+y.df <- as.data.frame(cbind(t(coef(summary(y.df))[1:2, 1]), t(coef(summary(y.df)) [1:2, 4])))
+
+names(y.df) <- c("a", "b", "a.pvalue", "b.pvalue")                      
+return(y.df)}
+
+try(for(j in unique(night$MONTH)){
+  print(j)
+  
+  trc <- getInitial(NEE ~ SS.trc('TA', "a", "b"), data = night[which(night$MONTH == j),]) 
+  
+  y4 <- try(nee.night(night[which(night$MONTH == j),]), silent=T) # Fit night model
+  
+  try(parms.Month[c(parms.Month$MONTH == j ), 2:5 ] <- cbind(y4), silent=T)
+  
+  rm(y4)
+}, silent=T)
+
+
+boot.NEE <- data.frame(parms.Month[, c("MONTH")]); names (boot.NEE) <- "MONTH"
+boot.NEE$a.est<- 0
+boot.NEE$b.est<- 0
+boot.NEE$a.se<- 0
+boot.NEE$b.se<- 0
+
+
+for ( j in unique(boot.NEE$MONTH)){
+  print(j)
+  y1 <-night[which(night$MONTH == j),]
+  
+  iv <- getInitial(NEE ~ SS.trc('TA',"a", "b"), data = y1) 
+  
+  night.fit <- nls(NEE ~ a * exp(b*TA), 
+                   data=y1, start=list(a= iv$a , b=iv$b ),
+                   na.action=na.exclude, trace=F,
+                   control=nls.control(warnOnly=T))
+  
+  results <- nlsBoot(night.fit, niter=100 )
+  a <- t(results$estiboot)[1, 1:2]
+  names(a) <- c('a.est', 'b.est')
+  b <- t(results$estiboot)[2, 1:2]
+  names(b) <- c('a.se', 'b.se')
+  c <- t(data.frame(c(a,b)))
+  boot.NEE[c(boot.NEE$MONTH == j), 2:5] <- c[1, 1:4]
+  rm(night.fit, a, b, c, results, y1)
+}
+
+trc <- merge( parms.Month, boot.NEE)
+trc
+
+results <- nlsBoot (y4, niter=100 ) #bootstrap, way of subsampling data set, number of times it doesnt run well is part of the error estimation, we had it run 100 times. How well model will predict results that our data.
+summary(results)
+plot(results, type = "boxplot")
+
+
+
+summary(y)
+# show images of month, how they are similar. include table, and image for a month, august worst month bc more variability, compare with other month that has less variablity as the plot wont be so scattered
+

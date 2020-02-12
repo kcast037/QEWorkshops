@@ -1,0 +1,41 @@
+---
+title: "Workshop 3_Timeseries Models"
+author: "Katherine Castrillon"
+date: "1/24/2020"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Objectives
+
+The information used in this analysis was obtained from a mangrove tower site, TS/Ph-7, located within a mangrove scrub in Everglades National Park at the Florida Coastal Everglades Long-term Ecological Research site.
+
+do not state what we had learned from the workshop
+focusing on air temperature
+
+what we did,  
+method of arima
+we know what assumptions are, this is the approach used, trying estimation ecosystem excha rate, exploring drivers,
+
+include model and talk about model developed.
+
+using model to make predictions
+
+A report should just tell the gist of things. what did you do, what did you find, etc. 
+
+very straight forward. 
+# Methods
+
+
+## Site Information 
+Everglades, include lat long picture of map
+
+## Statistical Analysis
+
+include AIC, p-value, 
+
+# Results (minimum of 1 plot and one table)
+
+
+# Discussion (1 paragrapgh)

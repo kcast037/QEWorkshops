@@ -1,0 +1,26 @@
+---
+title: The Effects of C-100A on Tree Species and Water Quality within the Deering
+  Estate High-flow and Low-flow Drainage Basins
+author: "Katherine Castrillon"
+date: "01/10/2020"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+***
+# Research Statement  
+I am a Masters student under CREST with Dr. Michael Ross as my advisor within the Earth and Environment Department at Florida International University. My research topic is focused within the boundary of the Deering Estate at Palmetto Bay in Miami, FL. Utilizing HOBOware, I will be monitoring the hydrology within the Cutler Slough Rehydration Project. I am looking into understanding the effects of the CSRP's unsystematic hydrologic regime and water quality on tree species present within the Deering Estates Natural Areas wet limestone hammock ecosystem.  
+  
+***
+# Objectives and Hypothesis  
+The Deering Estate natural areas is composed of transitions in habitat type from wet limestone hardwood hammock to red mangrove fringe forest. The current restoration taking place, known as the Cutler Slough Rehydration Project, was created to mimic the historical wetland’s hydrological regime. The amount of time that the Deering drainage basins have been dried is unknown, however the desiccation of the depressions in the Cutler Slough allowed for encroachment of vegetation to occur.The unsystematic input of freshwater from the C-100A via pump station is believed to have created stress on the encroached and surrounding vegetation which may be causing individual organisms to alter their physiology and morphology in response to changes in environmental conditions” (Schlichting, 1986). In conjunction with canal-derived flow, the shape of the Deering drainage basin creates high-flow and low-flow water regimes, where water may pool or completely dry due to variability in ground elevation, porosity of substrate, and overall influx of water added to the system. In addition, within the two basins, water and nutrient uptake, and water quality conditions might differ from point source input to output as the Deering Estate acts as a sink. In response to the effect that the rehydration has on the two drainage-basins, observations on vegetation growth or die-off may clarify relationships between water regime and vegetation response within a restoration context. It also could uncover species-specific responses to flooding and nutrient stresses that result in vegetation plasticity, physiological drought, reduced growth, and decreased survival. The primary goal is to determine the effects of the CUtler SLough's sporatic dehydration on tree species, and determine water and nutrient uptake of tree species with varying health conditions, and water quality within the Deering Estate's natural areas hardwood hammock wetland habitats through three belt transects that cross perpendicularly through the two basins: high-flow and low-flow.  
+
+*** 
+
+# Methods (Dataset and Statistical Analysis)  
+* Identify physiognomic and physiological characteristics affecting tree species within the two drainage basins in their capacity to adapt to the present hydrology.  
+* Evaluate nutrient uptake via plant nutrient analysis by various tree species within areas along the CUtler Creek recieving high flow, and areas in the hardwood hammocks wetland recieving low flow.  
+* Measure water uptake via sap flow sensor on select tree species displaying both healthy and unhealthy physiological characteristics.  
+* Compare resurvey of species-specific mortality data on woody vegetation with data from 2016.
+
